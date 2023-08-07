@@ -26,20 +26,20 @@ export const NewDish = () => {
     <div>
       <h3>New Dish</h3>
       <div>
-        <label>Название блюда</label>
+        <label>Dish Name</label>
         <input 
           value={form.dish}
           onChange={(event) => dispatch({ type: 'setDish', payload: event.target.value})}
         />
       </div>
       <div>
-        <label>Цена блюда</label>
+        <label>Price</label>
         <input
           value={form.price}
           onChange={(event) => dispatch({ type: 'setPrice', payload: event.target.value})}/>
       </div>
       <div>
-        <label>Ингредиенты</label>
+        <label>Ingredients</label>
         <input          
           value={form.ingredients}
           onChange={(event) => dispatch({ type: 'setIngredients', payload: event.target.value})}/>
