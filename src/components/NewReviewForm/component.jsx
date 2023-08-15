@@ -21,7 +21,6 @@ const reducer = (state, { type, payload } = {}) => {
 
 export const NewReviewForm = () => {
   const [form, dispatch] = useReducer(reducer, DEFAULT_VALUE);
-  console.log(form);
 
   return (
     <div>

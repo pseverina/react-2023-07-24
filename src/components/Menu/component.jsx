@@ -1,4 +1,5 @@
 import { Dish } from "../Dish/component";
+import { NewDish } from "../NewDish/component";
 
 export const Menu = ({ dishes }) => {
   return (
@@ -9,6 +10,7 @@ export const Menu = ({ dishes }) => {
           <Dish key={dish.id} dish={dish} />
         ))}
       </div>
+      <NewDish />
     </div>
   );
 };
