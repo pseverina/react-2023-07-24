@@ -10,6 +10,19 @@ const rootReducer = (state = defaultState, action) => {
         [action.payload]: (state[action.payload] || 0) + 1,
       };
 
+    case "decrement":
+      return {
+        ...state,
+        [action.payload]: (state[action.payload] || 0) - 1,
+      };
+
+    case "login":
+      return { ...state, userName: 'Kek' };
+
+    case "logout":
+      return { ...state, userName: '' };
+
+
     default:
       return state;
   }

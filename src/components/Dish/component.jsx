@@ -8,7 +8,9 @@ export const Dish = ({ dish }) => {
   const increment = () => {
     dispatch({ type: "increment", payload: dish.name });
   };
-  const decrement = () => {};
+  const decrement = () => {
+    dispatch({ type: "decrement", payload: dish.name });
+  };
 
   const { price: dishPrice, name } = dish || {};
 
