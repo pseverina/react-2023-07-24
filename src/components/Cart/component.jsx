@@ -1,7 +1,7 @@
-import { useSelector } from "../../custome-redux";
+import { useSelector } from "react-redux";
 
 export const Cart = () => {
-  const cart = useSelector((state) => state);
+  const cart = useSelector((state) => state.cart);
 
   return (
     <div>

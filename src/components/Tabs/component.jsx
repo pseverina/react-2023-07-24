@@ -1,12 +1,14 @@
-import { Button } from "../Button/component";
+import { RestaurantTabContainer } from "../RestaurantTab/container";
 
-export const Tabs = ({ restaurants, onTabSelect }) => {
+export const Tabs = ({ restaurantIds, onTabSelect }) => {
   return (
     <div>
-      {restaurants.map((restaurant, index) => (
-        <Button key={restaurant.id} onClick={() => onTabSelect(index)}>
-          {restaurant.name}
-        </Button>
+      {restaurantIds.map((id) => (
+        <RestaurantTabContainer
+          key={id}
+          restaurantId={id}
+          onTabSelect={() => onTabSelect(id)}
+        />
       ))}
     </div>
   );
