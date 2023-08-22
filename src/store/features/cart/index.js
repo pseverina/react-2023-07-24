@@ -1,13 +1,15 @@
+import { CART_ACTION } from "./action";
+
 const DEFAULT_STATE = {};
 
 export const cartReducer = (state = DEFAULT_STATE, action) => {
   switch (action?.type) {
-    case "increment":
+    case CART_ACTION.increment:
       return {
         ...state,
         [action.payload]: (state[action.payload] || 0) + 1,
       };
-    case "decrement":
+    case CART_ACTION.decrement:
       return {
         ...state,
         [action.payload]:

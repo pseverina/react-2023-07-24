@@ -1,16 +1,12 @@
-import { useSelector } from "react-redux";
+import { DishContainer } from "../Dish/container";
 
-export const Cart = () => {
-  const cart = useSelector((state) => state.cart);
-
+export const Cart = ({ dishIds }) => {
   return (
     <div>
       <h2>Cart</h2>
       <ul>
-        {Object.entries(cart).map(([name, count]) => (
-          <li key={name}>
-            {name}: {count}
-          </li>
+        {dishIds.map((dishId) => (
+          <DishContainer key={dishId} dishId={dishId} />
         ))}
       </ul>
     </div>

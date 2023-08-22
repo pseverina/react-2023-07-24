@@ -1,13 +1,15 @@
 import { NewReviewForm } from "../NewReviewForm/component";
-import { Review } from "../Review/component";
+import { ReviewContainer } from "../Review/container";
 
-export const Reviews = ({ reviews }) => {
+export const Reviews = ({ reviewIds }) => {
   return (
     <div>
       <h3>Reviews</h3>
       <div>
-        {!!reviews.length &&
-          reviews.map((review) => <Review key={review.id} review={review} />)}
+        {!!reviewIds.length &&
+          reviewIds.map((reviewId) => (
+            <ReviewContainer key={reviewId} reviewId={reviewId} />
+          ))}
       </div>
       <NewReviewForm />
     </div>

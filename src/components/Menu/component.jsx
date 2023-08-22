@@ -1,13 +1,13 @@
-import { Dish } from "../Dish/component";
+import { DishContainer } from "../Dish/container";
 import { NewDish } from "../NewDish/component";
 
-export const Menu = ({ dishes }) => {
+export const Menu = ({ dishIds }) => {
   return (
     <div>
       <h3>Menu</h3>
       <div>
-        {dishes.map((dish) => (
-          <Dish key={dish.id} dish={dish} />
+        {dishIds.map((dishId) => (
+          <DishContainer key={dishId} dishId={dishId} />
         ))}
       </div>
       <NewDish />
