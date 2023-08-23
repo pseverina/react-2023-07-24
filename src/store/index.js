@@ -7,7 +7,6 @@ import { reviewReducer } from "./features/review";
 import { userReducer } from "./features/user";
 import { authorizationReducer } from "./features/authorization";
 import { checkAuthorization } from "./middlewares/check-authorization";
-import { loadRestaurantsIfNotExist } from "./features/restaurant/middlewares/load-restaurants";
 import { thunk } from "./middlewares/thunk";
 
 const rootReducer = combineReducers({
@@ -25,7 +24,6 @@ export const store = createStore(
     thunk,
     loggerMiddleware,
     checkAuthorization,
-    loadRestaurantsIfNotExist
   )
 );
 

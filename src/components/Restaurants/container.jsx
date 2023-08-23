@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Restaurants } from "./component";
 import { useEffect } from "react";
-import { loadRestaurants } from "../../store/features/restaurant/action";
+import { loadRestaurantsIfNotExist }  from '../../store/features/restaurant/thunks/load-restaurants'
 import { selectIsRestaurantsLoading } from "../../store/features/restaurant/selectors";
 
 export const RestaurantsContainer = () => {
@@ -9,7 +9,7 @@ export const RestaurantsContainer = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadRestaurants());
+    dispatch(loadRestaurantsIfNotExist());
   }, [dispatch]);
 
   if (isLoading) {
