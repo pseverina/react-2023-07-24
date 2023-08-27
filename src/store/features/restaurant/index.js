@@ -1,41 +1,33 @@
-import { RESTAURANT_ACTION } from "./action";
+import { createSlice } from "@reduxjs/toolkit";
 
 const DEFAULT_STATE = {
   entities: {},
   ids: [],
 };
 
-export const restaurantReducer = (
-  state = DEFAULT_STATE,
-  { type, payload } = {}
-) => {
-  switch (type) {
-    case RESTAURANT_ACTION.finishLoading: {
-      return {
-        entities: payload.reduce((acc, restaurant) => {
-          acc[restaurant.id] = restaurant;
+export const restaurantSlice = createSlice({
+  name: 'restaurant',
+  initialState: DEFAULT_STATE,
+  reducers: {
+    finishLoading: (state, { payload } = {}) => {
+      state.entities = payload.reduce((acc, restaurant) => {
+        acc[restaurant.id] = restaurant;
 
-          return acc;
-        }, {}),
-        ids: payload.map(({ id }) => id),
-      };
-    }
-    case RESTAURANT_ACTION.addReview: {
-      return {
-        ...state,
-        entities: {
-          ...state.entities,
-          [payload.restaurantId]: {
-            ...state.entities[payload.restaurantId],
-            reviews: [
-              ...state.entities[payload.restaurantId].reviews,
-              payload.reviewId,
-            ],
-          },
+        return acc;
+      }, {});
+      state.ids = payload.map(({ id }) => id);
+    },
+    addReview: (state, { payload } = {}) => {
+      state.entities = {
+        ...state.entities,
+        [payload.restaurantId]: {
+          ...state.entities[payload.restaurantId],
+          reviews: [
+            ...state.entities[payload.restaurantId].reviews,
+            payload.reviewId,
+          ],
         },
       };
     }
-    default:
-      return state;
   }
-};
+})

@@ -1,9 +1,5 @@
 import { selectRestaurantMenuById } from "../../restaurant/selectors";
-import {
-  failLoadingDishes,
-  finishLoadingDishes,
-  startLoadingDishes,
-} from "../action";
+import { dishSlice } from '../index';
 import { selectDishIds } from "../selectors";
 
 export const loadDishesByRestaurantIfNotExist =
@@ -19,10 +15,10 @@ export const loadDishesByRestaurantIfNotExist =
       return;
     }
 
-    dispatch(startLoadingDishes());
+    dispatch(dishSlice.actions.startLoading());
 
     fetch(`http://localhost:3001/api/dishes?restaurantId=${restaurantId}`)
       .then((response) => response.json())
-      .then((restaurants) => dispatch(finishLoadingDishes(restaurants)))
-      .catch(() => dispatch(failLoadingDishes()));
+      .then((restaurants) => dispatch(dishSlice.actions.finishLoading(restaurants)))
+      .catch(() => dispatch(dishSlice.actions.failLoading()));
   };

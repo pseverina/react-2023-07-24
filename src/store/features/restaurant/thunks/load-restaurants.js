@@ -1,5 +1,5 @@
 import { failRequest, finishRequest, startRequest } from "../../request/action";
-import { finishLoadingRestaurants } from "../action";
+import { restaurantSlice } from '../index';
 import { selectRestaurantIds } from "../selectors";
 
 export const loadRestaurantsIfNotExist =
@@ -13,7 +13,7 @@ export const loadRestaurantsIfNotExist =
     fetch("http://localhost:3001/api/restaurants/")
       .then((response) => response.json())
       .then((restaurants) => {
-        dispatch(finishLoadingRestaurants(restaurants));
+        dispatch(restaurantSlice.actions.finishLoading(restaurants));
         dispatch(finishRequest(requestId));
       })
       .catch(() => dispatch(failRequest(requestId)));

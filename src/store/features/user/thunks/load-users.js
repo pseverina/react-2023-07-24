@@ -1,8 +1,4 @@
-import {
-  failLoadingUsers,
-  finishLoadingUsers,
-  startLoadingUsers,
-} from "../action";
+import { userSlice } from '../index';
 import { selectUserIds } from "../selectors";
 
 export const loadUsersIfNotExist = () => (dispatch, getState) => {
@@ -10,10 +6,10 @@ export const loadUsersIfNotExist = () => (dispatch, getState) => {
     return;
   }
 
-  dispatch(startLoadingUsers());
+  dispatch(userSlice.actions.startLoading());
 
   fetch("http://localhost:3001/api/users/")
     .then((response) => response.json())
-    .then((users) => dispatch(finishLoadingUsers(users)))
-    .catch(() => dispatch(failLoadingUsers()));
+    .then((users) => dispatch(userSlice.actions.finishLoading(users)))
+    .catch(() => dispatch(userSlice.actions.failLoading()));
 };

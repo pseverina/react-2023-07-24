@@ -2,6 +2,8 @@ import { CART_ACTION } from "./action";
 
 const DEFAULT_STATE = {};
 
+// не разобралась как перезаписать [action.payload] в toolkit
+
 export const cartReducer = (state = DEFAULT_STATE, action) => {
   switch (action?.type) {
     case CART_ACTION.increment:
