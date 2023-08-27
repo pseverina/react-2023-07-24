@@ -1,18 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Restaurants } from "./component";
 import { useEffect } from "react";
-import { loadRestaurants } from "../../store/features/restaurant/action";
-import { selectIsRestaurantsLoading } from "../../store/features/restaurant/selectors";
+import { loadRestaurantsIfNotExist } from "../../store/features/restaurant/thunks/load-restaurants";
+import { REQUEST_ID } from "../../store/features/request/constants";
+import { selectRequestStatus } from "../../store/features/request/selectors";
+import { LOADING_STATUS } from "../../constants/loading-statuses";
 
 export const RestaurantsContainer = () => {
-  const isLoading = useSelector(selectIsRestaurantsLoading);
+  const loadingStatus = useSelector((state) =>
+    selectRequestStatus(state, REQUEST_ID.restaurants)
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadRestaurants());
+    dispatch(loadRestaurantsIfNotExist(REQUEST_ID.restaurants));
   }, [dispatch]);
 
-  if (isLoading) {
+  if (loadingStatus === LOADING_STATUS.loading) {
     return <div>Loading...</div>;
   }
 

@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { Button } from "../Button/component";
 
 const DEFAULT_VALUE = {
   name: "",
@@ -14,12 +15,14 @@ const reducer = (state, { type, payload } = {}) => {
       return { ...state, text: payload };
     case "setRating":
       return { ...state, rating: payload };
+    case "clearForm":
+      return { ...DEFAULT_VALUE };
     default:
       return state;
   }
 };
 
-export const NewReviewForm = () => {
+export const NewReviewForm = ({ onSaveForm }) => {
   const [form, dispatch] = useReducer(reducer, DEFAULT_VALUE);
 
   return (
@@ -51,6 +54,17 @@ export const NewReviewForm = () => {
           }
         />
       </div>
+      <Button
+        onClick={() => {
+          onSaveForm({
+            ...form,
+            userId: "dfb982e9-b432-4b7d-aec6-7f6ff2e6af54",
+          });
+          dispatch({ type: "clearForm" });
+        }}
+      >
+        Save
+      </Button>
     </div>
   );
 };

@@ -1,17 +1,21 @@
-import { normalizedReviews } from "../../../constants/normalized-fixtures";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+import { createReview } from "./thunks/create-review";
+import { loadReviewsByRestaurantIfNotExist } from "./thunks/load-reveiws-by-restaurant";
 
-const DEFAULT_STATE = {
-  entities: normalizedReviews.reduce((acc, review) => {
-    acc[review.id] = review;
+const reviewEntityAdapter = createEntityAdapter();
 
-    return acc;
-  }, {}),
-  ids: normalizedReviews.map(({ id }) => id),
-};
-
-export const reviewReducer = (state = DEFAULT_STATE, { type } = {}) => {
-  switch (type) {
-    default:
-      return state;
-  }
-};
+export const reviewSlice = createSlice({
+  name: "review",
+  initialState: reviewEntityAdapter.getInitialState(),
+  extraReducers: (builder) =>
+    builder
+      .addCase(createReview.fulfilled, (state, { payload } = {}) => {
+        reviewEntityAdapter.addOne(state, payload);
+      })
+      .addCase(
+        loadReviewsByRestaurantIfNotExist.fulfilled,
+        (state, { payload } = {}) => {
+          reviewEntityAdapter.setMany(state, payload);
+        }
+      ),
+});

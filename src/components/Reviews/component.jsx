@@ -1,7 +1,7 @@
-import { NewReviewForm } from "../NewReviewForm/component";
+import { NewReviewFormContainer } from "../NewReviewForm/container";
 import { ReviewContainer } from "../Review/container";
 
-export const Reviews = ({ reviewIds }) => {
+export const Reviews = ({ reviewIds, restaurantId }) => {
   return (
     <div>
       <h3>Reviews</h3>
@@ -11,7 +11,7 @@ export const Reviews = ({ reviewIds }) => {
             <ReviewContainer key={reviewId} reviewId={reviewId} />
           ))}
       </div>
-      <NewReviewForm />
+      <NewReviewFormContainer restaurantId={restaurantId} />
     </div>
   );
 };
