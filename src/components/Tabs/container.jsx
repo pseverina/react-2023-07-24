@@ -1,9 +1,22 @@
-import { selectRestaurantIds } from "../../store/features/restaurant/selectors";
+import { useGetRestaurantsQuery } from "../../store/services/api";
+import { Button } from "../Button/component";
 import { Tabs } from "./component";
-import { useSelector } from "react-redux";
 
 export const RestaurantTabsContainer = (props) => {
-  const restaurantIds = useSelector(selectRestaurantIds);
+  const {
+    data: restaurants,
+    isLoading,
+    isError,
+    refetch,
+  } = useGetRestaurantsQuery(undefined, { pollingInterval: 5000 });
 
-  return <Tabs restaurantIds={restaurantIds} {...props} />;
+  if (isError) {
+    return <Button onClick={refetch}>Refetch</Button>;
+  }
+
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
+
+  return <Tabs restaurants={restaurants} {...props} />;
 };

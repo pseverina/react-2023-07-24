@@ -1,4 +1,4 @@
-import { logout } from "../features/authorization/action";
+import { authorizationSlice } from "../features/authorization";
 import { selectStartSessionTime } from "../features/authorization/selectors";
 // import { CART_ACTION } from "../features/cart/action";
 
@@ -20,5 +20,5 @@ export const checkAuthorization =
       return next(action);
     }
 
-    store.dispatch(logout());
+    store.dispatch(authorizationSlice.actions.logout());
   };

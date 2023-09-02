@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "../../components/Button/component";
 import { ThemeContext } from "../../contexts/themeContext";
 import { UserContextProvider } from "../../components/UserContextProvider/component";
-import { RestaurantsContainer } from "../../components/Restaurants/container";
+import { Restaurants } from "../../components/Restaurants/component";
 
 export const MainPage = () => {
   const [theme, setTheme] = useState("light");
@@ -17,7 +17,7 @@ export const MainPage = () => {
           >
             SwitchTheme
           </Button>
-          <RestaurantsContainer />
+          <Restaurants />
         </Layout>
       </ThemeContext.Provider>
     </UserContextProvider>

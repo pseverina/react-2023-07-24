@@ -1,41 +1,26 @@
-import { RESTAURANT_ACTION } from "./action";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { loadRestaurantsIfNotExist } from "./thunks/load-restaurants";
 
-const DEFAULT_STATE = {
-  entities: {},
-  ids: [],
-};
+const restaurantEntityAdapter = createEntityAdapter();
 
-export const restaurantReducer = (
-  state = DEFAULT_STATE,
-  { type, payload } = {}
-) => {
-  switch (type) {
-    case RESTAURANT_ACTION.finishLoading: {
-      return {
-        entities: payload.reduce((acc, restaurant) => {
-          acc[restaurant.id] = restaurant;
-
-          return acc;
-        }, {}),
-        ids: payload.map(({ id }) => id),
-      };
-    }
-    case RESTAURANT_ACTION.addReview: {
-      return {
-        ...state,
-        entities: {
-          ...state.entities,
-          [payload.restaurantId]: {
-            ...state.entities[payload.restaurantId],
-            reviews: [
-              ...state.entities[payload.restaurantId].reviews,
-              payload.reviewId,
-            ],
-          },
+export const restaurantSlice = createSlice({
+  name: "restaurant",
+  initialState: restaurantEntityAdapter.getInitialState(),
+  reducers: {
+    addReview: (state, { payload: { restaurantId, reviewId } }) => {
+      restaurantEntityAdapter.updateOne(state, {
+        id: restaurantId,
+        changes: {
+          reviews: [...state.entities[restaurantId].reviews, reviewId],
         },
-      };
-    }
-    default:
-      return state;
-  }
-};
+      });
+    },
+  },
+  extraReducers: (builder) =>
+    builder.addCase(
+      loadRestaurantsIfNotExist.fulfilled,
+      (state, { payload } = {}) => {
+        restaurantEntityAdapter.setAll(state, payload);
+      }
+    ),
+});

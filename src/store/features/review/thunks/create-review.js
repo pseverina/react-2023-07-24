@@ -1,4 +1,4 @@
-import { addRestaurantReview } from "../../restaurant/action";
+import { restaurantSlice } from "../../restaurant";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const createReview = createAsyncThunk(
@@ -16,7 +16,10 @@ export const createReview = createAsyncThunk(
     );
 
     const review = await response.json();
-    dispatch(addRestaurantReview({ restaurantId, reviewId: review.id }));
+
+    dispatch(
+      restaurantSlice.actions.addReview({ restaurantId, reviewId: review.id })
+    );
 
     return review;
   }
